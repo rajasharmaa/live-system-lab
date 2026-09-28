@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 53% 5%;
+    --foreground: 156 25% 94%;
+
+    --card: 207 42% 8%;
+    --card-foreground: 156 25% 94%;
+
+    --popover: 207 42% 8%;
+    --popover-foreground: 156 25% 94%;
+
+    --primary: 162 66% 50%;
+    --primary-foreground: 210 53% 5%;
+
+    --secondary: 147 43% 22%;
+    --secondary-foreground: 151 100% 73%;
+
+    --muted: 207 30% 13%;
+    --muted-foreground: 168 12% 61%;
+
+    --accent: 151 100% 73%;
+    --accent-foreground: 210 53% 5%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 145 80% 45%;
+    --success-foreground: 222 47% 6%;
+
+    --warning: 45 100% 55%;
+    --warning-foreground: 222 47% 6%;
+
+    --border: 164 25% 18%;
+    --input: 164 25% 18%;
+    --ring: 162 66% 50%;
+
+    --radius: 0.375rem;
+
+    /* Custom gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(162 66% 50%) 0%, hsl(151 100% 73%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(147 43% 22%) 0%, hsl(162 66% 50%) 100%);
+    --gradient-danger: linear-gradient(135deg, hsl(0 85% 60%) 0%, hsl(45 100% 55%) 100%);
+    --gradient-glass: linear-gradient(135deg, hsl(147 43% 22% / .24) 0%, hsl(207 42% 8% / .94) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(162 66% 50% / .12) 0%, transparent 70%);
+
+    /* Shadows */
+    --shadow-glow: 0 0 38px hsl(162 66% 50% / .22);
+    --shadow-card: 0 18px 60px hsl(210 53% 2% / .42);
+
+    --sidebar-background: 207 42% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 162 66% 50%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 147 43% 22%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 164 25% 18%;
+    --sidebar-ring: 162 66% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  code, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Space Grotesk', sans-serif; letter-spacing: 0; }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-border rounded-md;
+    box-shadow: var(--shadow-card);
+  }
+
+  .glow-effect {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--gradient-primary);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsla(190, 100%, 50%, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px hsla(190, 100%, 50%, 0.6);
+    }
+  }
+
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .grid-pattern {
+    background-image: 
+      linear-gradient(hsl(162 66% 50% / .035) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(162 66% 50% / .035) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .command-panel { @apply rounded-md border border-border bg-card/75 backdrop-blur-xl; box-shadow: var(--shadow-card); }
+  .section-shell { @apply relative py-20 md:py-28; }
+  .section-kicker { @apply mb-4 font-mono text-[10px] uppercase text-primary; }
+  .section-title { @apply font-heading text-3xl font-bold md:text-5xl; }
+  .section-copy { @apply mt-3 max-w-2xl text-muted-foreground; }
+  .data-label { @apply font-mono text-[10px] uppercase text-muted-foreground; }
+  .signal-icon { @apply flex items-center justify-center rounded-sm border border-primary/30 bg-primary/10 text-primary; }
+}
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
